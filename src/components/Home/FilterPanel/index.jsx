@@ -13,8 +13,13 @@ const FilterPanel = ({
   return (
     <div>
       {/* programs checkbox */}
+      <p className="label">
+        PROGRAM LEVEL{" "}
+        <span class="icons">
+          <i class="fas fa-filter"></i>
+        </span>
+      </p>
       <div className="input-group">
-        <p className="label">Program Level</p>
         {programs.map((program) => (
           <CheckBoxProton
             key={program.id}
@@ -25,8 +30,13 @@ const FilterPanel = ({
       </div>
       {/*  country checkbox  */}
       {/* price range  */}
-      <div className="input-group">
-        <p className="label">Price Filter</p>
+      <div className="input-group-price-range">
+        <p className="label">
+          YEARLY TUTION FEES{" "}
+          <span class="icons-bill">
+            <i class="fas fa-money-bill"></i>
+          </span>
+        </p>
         <SliderProton value={selectedPrice} changedPrice={changedPrice} />
       </div>
     </div>

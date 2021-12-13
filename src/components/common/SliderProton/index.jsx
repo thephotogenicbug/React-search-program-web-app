@@ -5,16 +5,16 @@ import { Slider } from "@material-ui/core";
 const useStyles = makeStyles({
   root: {
     width: "85%",
-    margin: '1rem',
+    margin: "1rem",
   },
   thumb: {
-    color: "#000",
+    color: "#1D5AD4",
   },
   rail: {
-    color: "rgba(0,0,0,.26)",
+    color: "#1D5AD4",
   },
   track: {
-    color: "#000",
+    color: "#1D5AD4",
   },
 });
 
@@ -25,7 +25,7 @@ const SliderProton = ({ value, changedPrice }) => {
       <Slider
         value={value}
         onChange={changedPrice}
-        valueLabelDisplay="on"
+        valueLabelDisplay="auto"
         min={1000}
         max={5000}
         classes={{

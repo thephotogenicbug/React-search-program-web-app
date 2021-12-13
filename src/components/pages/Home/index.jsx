@@ -18,22 +18,57 @@ const Home = () => {
     {
       id: 2,
       checked: false,
-      label: "UG Diploma",
+      label: "Ug Diploma Certificate Associate Degree",
     },
     {
       id: 3,
       checked: false,
-      label: "PG Diploma",
+      label: "UG",
     },
     {
       id: 4,
       checked: false,
-      label: "PG",
+      label: "PG Diploma Certificate",
     },
     {
       id: 5,
       checked: false,
-      label: "UG+PG(Accelerated)Degree",
+      label: "PG",
+    },
+    {
+      id: 6,
+      checked: false,
+      label: "UG+PG Accelerated Degree",
+    },
+    {
+      id: 7,
+      checked: false,
+      label: "PhD",
+    },
+    {
+      id: 8,
+      checked: false,
+      label: "Foundation",
+    },
+    {
+      id: 9,
+      checked: false,
+      label: "Short Term Programs",
+    },
+    {
+      id: 10,
+      checked: false,
+      label: "Pathway Programs",
+    },
+    {
+      id: 11,
+      checked: false,
+      label: "Twinning Programmes (UG)",
+    },
+    {
+      id: 12,
+      checked: false,
+      label: "Twinning Programmes (PG)",
     },
   ]);
 
