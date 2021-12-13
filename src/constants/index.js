@@ -3,12 +3,14 @@ export const dataList = [
     id: 1,
     title: "Dummy High School",
     program: "high school",
+    country: "united state of america",
     price: 2500,
   },
   {
     id: 2,
     title: "Dummy UG Diploma",
     program: "ug diploma certificate associate degree",
+    country: "canada",
     price: 1000,
   },
   {

@@ -1,29 +1,31 @@
-.label{
-    margin-bottom: .8rem;
-    font-weight: 600;
-    font-size: 15px;
-    background: #1D5AD4;
-    padding: 13px;
-    color: #ffff;
-    width: 250px;
+.label {
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  font-size: 15px;
+  background: #1d5ad4;
+  padding: 13px;
+  color: #ffff;
+  width: 250px;
 }
-.input-group{
-    margin-bottom: 2rem;
-    margin: 0.2rem;
-    height: 300px;
-    overflow-y: auto;
-    
+.input-group {
+  margin-bottom: 2rem;
+  margin: 0.2rem;
+  height: 300px;
+  overflow-y: auto;
 }
-.label-range{
-    margin-bottom: 2.5rem;
+.label-range {
+  margin-bottom: 2.5rem;
 }
 
-.input-group-price-range{
-     margin-bottom: 2rem;
+.input-group-price-range {
+  margin-bottom: 2rem;
 }
-.icons{
-    margin-left: 90px;
+.icons {
+  margin-left: 90px;
 }
-.icons-bill{
-     margin-left: 57px;
+.icons-bill {
+  margin-left: 57px;
+}
+.horizontal-line {
+  margin-bottom: 0.5rem;
 }

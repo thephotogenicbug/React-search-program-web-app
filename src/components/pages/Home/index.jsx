@@ -6,7 +6,6 @@ import Searchbar from "../../Home/SearchBar";
 import "./styles.css";
 
 const Home = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const [list, setList] = useState(dataList);
   const [selectedPrice, setSelectedPrice] = useState([1000, 5000]);
   const [programs, setPrograms] = useState([
@@ -71,6 +70,58 @@ const Home = () => {
       label: "Twinning Programmes (PG)",
     },
   ]);
+  const [countries, setCountries] = useState([
+    {
+      id: 1,
+      checked: false,
+      label: "United State Of America",
+    },
+    {
+      id: 2,
+      checked: false,
+      label: "Canada",
+    },
+    {
+      id: 3,
+      checked: false,
+      label: "Australia",
+    },
+    {
+      id: 4,
+      checked: false,
+      label: "New Zealand",
+    },
+    {
+      id: 5,
+      checked: false,
+      label: "Singapore",
+    },
+    {
+      id: 6,
+      checked: false,
+      label: "United Kingdom",
+    },
+    {
+      id: 7,
+      checked: false,
+      label: "Ireland",
+    },
+    {
+      id: 8,
+      checked: false,
+      label: "Germany",
+    },
+    {
+      id: 9,
+      checked: false,
+      label: "France",
+    },
+    {
+      id: 10,
+      checked: false,
+      label: "Sweden",
+    },
+  ]);
 
   // programs function
   const handleChangeCheckedProgram = (id) => {
@@ -81,10 +132,19 @@ const Home = () => {
     setPrograms(changeCheckedPrograms);
   };
 
+  // country function
+  const handleChangeCheckedCountry = (id) => {
+    const countriesStateList = countries;
+    const changeCheckedCountires = countriesStateList.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    setCountries(changeCheckedCountires);
+  };
+
   // price function
   const handleChangePrice = (event, value) => setSelectedPrice(value);
 
-   //  parent filter function
+  //  parent filter function
   const applyFilters = () => {
     let updatedList = dataList;
 
@@ -95,6 +155,15 @@ const Home = () => {
     if (programChecked.length) {
       updatedList = updatedList.filter((item) =>
         programChecked.includes(item.program)
+      );
+    }
+    // country filter
+    const countryChecked = countries
+      .filter((item) => item.checked)
+      .map((item) => item.label.toLowerCase());
+    if (countryChecked.length) {
+      updatedList = updatedList.filter((item) =>
+        countryChecked.includes(item.country)
       );
     }
 
@@ -111,7 +180,7 @@ const Home = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [programs, selectedPrice]);
+  }, [programs, selectedPrice, countries]);
 
   return (
     <div class="home">
@@ -125,6 +194,8 @@ const Home = () => {
             changeChecked={handleChangeCheckedProgram}
             selectedPrice={selectedPrice}
             changedPrice={handleChangePrice}
+            countries={countries}
+            changeCheckedCountry={handleChangeCheckedCountry}
           />
         </div>
         <div className="home_list-wrap">
