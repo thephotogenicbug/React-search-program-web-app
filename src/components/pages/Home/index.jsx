@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { dataList } from "../../../constants";
+import EmptyView from "../../common/EmptyView";
 import FilterPanel from "../../Home/FilterPanel";
 import List from "../../Home/List";
 import Searchbar from "../../Home/SearchBar";
@@ -8,6 +9,8 @@ import "./styles.css";
 const Home = () => {
   const [list, setList] = useState(dataList);
   const [selectedPrice, setSelectedPrice] = useState([1000, 5000]);
+  const [resultFound, setResultFound] = useState(false);
+  const [inputSearch, setInputSearch] = useState("");
   const [programs, setPrograms] = useState([
     {
       id: 1,
@@ -148,6 +151,15 @@ const Home = () => {
   const applyFilters = () => {
     let updatedList = dataList;
 
+    // search filter
+    if (inputSearch) {
+      updatedList = updatedList.filter(
+        (item) =>
+          item.title.toLowerCase().search(inputSearch.toLowerCase().trim()) !==
+          -1
+      );
+    }
+
     // program filter
     const programChecked = programs
       .filter((item) => item.checked)
@@ -176,16 +188,18 @@ const Home = () => {
     );
 
     setList(updatedList);
+
+    !updatedList.length ? setResultFound(false) : setResultFound(true);
   };
 
   useEffect(() => {
     applyFilters();
-  }, [programs, selectedPrice, countries]);
+  }, [programs, selectedPrice, countries, inputSearch]);
 
   return (
     <div class="home">
       {/* Searchbar */}
-      <Searchbar />
+      <Searchbar value={inputSearch} changeInput={(e) => setInputSearch(e.target.value)} />
       <div className="home_panelList-wrap">
         <div className="home_panel-wrap">
           {/* Side Panel */}
@@ -200,7 +214,7 @@ const Home = () => {
         </div>
         <div className="home_list-wrap">
           {/* List */}
-          <List list={list} />
+          {resultFound ? <List list={list} /> : <EmptyView />}
         </div>
       </div>
     </div>
