@@ -1,6 +1,4 @@
 import React from "react";
-import { categoryList } from "../../../constants";
-import CheckBoxProtonCountry from "../../common/CheckBoxProtonCountryLevel";
 import CheckBoxProton from "../../common/CheckBoxProtonProgramLevel";
 import CheckBoxProtonUniversity from "../../common/checkBoxProtonUniversityLevel";
 import SliderProton from "../../common/SliderProton";
