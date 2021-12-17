@@ -5,11 +5,11 @@
   background: #1d5ad4;
   padding: 13px;
   color: #ffff;
-  width: 250px;
+  width: 330px;
 }
 .input-group {
   margin-bottom: 2rem;
-  margin: 0.2rem;
+  margin: 1rem;
   height: 300px;
   overflow-y: auto;
 }
@@ -21,10 +21,10 @@
   margin-bottom: 2rem;
 }
 .icons {
-  margin-left: 90px;
+  margin-left: 180px;
 }
 .icons-bill {
-  margin-left: 57px;
+  margin-left: 150px;
 }
 .horizontal-line {
   margin-bottom: 0.5rem;

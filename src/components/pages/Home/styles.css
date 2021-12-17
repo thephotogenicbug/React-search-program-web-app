@@ -14,8 +14,7 @@
     /* background-color: blue; */
 }
 .home_panel-wrap{
-    flex-basis: 280px;
-    /* background-color: red; */
+    flex-basis: 380px;
 }
 .home_list-wrap{
     flex: 1;

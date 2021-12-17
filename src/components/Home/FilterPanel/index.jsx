@@ -2,6 +2,7 @@ import React from "react";
 import { categoryList } from "../../../constants";
 import CheckBoxProtonCountry from "../../common/CheckBoxProtonCountryLevel";
 import CheckBoxProton from "../../common/CheckBoxProtonProgramLevel";
+import CheckBoxProtonUniversity from "../../common/checkBoxProtonUniversityLevel";
 import SliderProton from "../../common/SliderProton";
 import "./styles.css";
 
@@ -10,12 +11,14 @@ const FilterPanel = ({
   changeChecked,
   changedPrice,
   selectedPrice,
+  universities,
+  changeCheckedUniversity,
 }) => {
   return (
     <div>
       {/* programs checkbox */}
       <p className="label">
-        PROGRAM LEVEL{" "}
+        Program Level{" "}
         <span class="icons">
           <i class="fas fa-filter"></i>
         </span>
@@ -29,8 +32,31 @@ const FilterPanel = ({
           />
         ))}
       </div>
-      {/*  country checkbox  */}
-     
+      {/*  university checkbox  */}
+      <p className="label">
+        University Level{" "}
+        <span class="icons">
+          <i class="fas fa-filter"></i>
+        </span>
+      </p>
+      <div className="input-group">
+        {universities.map((university) => (
+          <CheckBoxProtonUniversity
+            key={university.id}
+            changeCheckedUniversity={changeCheckedUniversity}
+            university={university}
+          />
+        ))}
+      </div>
+      {/*  study  checkbox  */}
+      <p className="label">
+        Study Level{" "}
+        <span class="icons">
+          <i class="fas fa-filter"></i>
+        </span>
+      </p>
+      <div className="input-group"></div>
+
       {/* price range  */}
       <div className="input-group-price-range">
         <p className="label">

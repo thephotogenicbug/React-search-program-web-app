@@ -35,51 +35,54 @@ const useStyles = makeStyles({
 const ListItem = ({ item: {title, university, specialization, campus, country, program, duration, entryrequirement, applicationdeadline, applicationfee, price, scholarshipavailable, scholarshipdetails, applicationmode, remarks, _id } }) => {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardContent className={classes.cardcontent}>
-          <Typography variant="h6">{title}</Typography>
-          <Typography variant="h6">
-            <Button size="small" color="primary">
-              <Link to={`${_id}`} className={classes.button}>
-                View Details
-              </Link>
-            </Button>
-          </Typography>
-          {/* <Typography variant="body2" color="error" component="p">
+    <>
+       
+      <Card className={classes.root}>
+        <CardActionArea>
+          <CardContent className={classes.cardcontent}>
+            <Typography variant="h6">{title}</Typography>
+            <Typography variant="h6">
+              <Button size="small" color="primary">
+                <Link to={`${_id}`} className={classes.button}>
+                  View Details
+                </Link>
+              </Button>
+            </Typography>
+            {/* <Typography variant="body2" color="error" component="p">
             {" "}
             {entryrequirement}
           </Typography> */}
-        </CardContent>
-        <CardContent>
-          <Typography variant="body2" className={classes.cardcontent2}>
-            <b>
-              <i className="fas fa-university card-icon"></i>University:
-            </b>
-            <label class={classes.data}>{university}</label>
-          </Typography>
-          <Typography variant="body2" className={classes.cardcontent2}>
-            <b>
-              <i class="fas fa-globe-asia card-icon-country"></i>Country:
-            </b>{" "}
-            {country}
-          </Typography>
-          <Typography variant="body2" className={classes.cardcontent2}>
-            <b>
-              <i class="fas fa-money-bill card-icon-fees"></i>Yearly Tuition
-              Fees:
-            </b>
-            {price}
-          </Typography>
-          <Typography variant="body2" className={classes.cardcontent2}>
-            <b>
-              <i class="far fa-clock card-icon-fees"></i>Duration Fees:
-            </b>
-            {price}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+          </CardContent>
+          <CardContent>
+            <Typography variant="body2" className={classes.cardcontent2}>
+              <b>
+                <i className="fas fa-university card-icon"></i>University:
+              </b>
+              <label class={classes.data}>{university}</label>
+            </Typography>
+            <Typography variant="body2" className={classes.cardcontent2}>
+              <b>
+                <i class="fas fa-globe-asia card-icon-country"></i>Country:
+              </b>{" "}
+              {country}
+            </Typography>
+            <Typography variant="body2" className={classes.cardcontent2}>
+              <b>
+                <i class="fas fa-money-bill card-icon-fees"></i>Yearly Tuition
+                Fees:
+              </b>{" "}
+              {price}
+            </Typography>
+            <Typography variant="body2" className={classes.cardcontent2}>
+              <b>
+                <i class="far fa-clock card-icon-fees"></i>Duration:
+              </b>{" "}
+              {duration}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </>
   );
 };
 

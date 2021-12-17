@@ -4,7 +4,7 @@ import "./styles.css";
 
 const List = ({ list }) => {
 
-  
+
   return (
     <div className="list-wrap">
       {list.map((item) => (
