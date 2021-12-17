@@ -27,7 +27,7 @@ const SliderProton = ({ value, changedPrice }) => {
         onChange={changedPrice}
         valueLabelDisplay="auto"
         min={1000}
-        max={5000}
+        max={260000}
         classes={{
           thumb: classes.thumb,
           rail: classes.rail,

@@ -1,14 +1,14 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { dataList } from "../../../constants";
 import EmptyView from "../../common/EmptyView";
 import FilterPanel from "../../Home/FilterPanel";
 import List from "../../Home/List";
+import ListItem from "../../Home/ListItem";
 import Searchbar from "../../Home/SearchBar";
 import "./styles.css";
 
 const Home = () => {
-  const [list, setList] = useState(dataList);
-  const [selectedPrice, setSelectedPrice] = useState([1000, 5000]);
+  const [selectedPrice, setSelectedPrice] = useState([1000, 260000]);
   const [resultFound, setResultFound] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
   const [programs, setPrograms] = useState([
@@ -73,59 +73,6 @@ const Home = () => {
       label: "Twinning Programmes (PG)",
     },
   ]);
-  const [countries, setCountries] = useState([
-    {
-      id: 1,
-      checked: false,
-      label: "United State Of America",
-    },
-    {
-      id: 2,
-      checked: false,
-      label: "Canada",
-    },
-    {
-      id: 3,
-      checked: false,
-      label: "Australia",
-    },
-    {
-      id: 4,
-      checked: false,
-      label: "New Zealand",
-    },
-    {
-      id: 5,
-      checked: false,
-      label: "Singapore",
-    },
-    {
-      id: 6,
-      checked: false,
-      label: "United Kingdom",
-    },
-    {
-      id: 7,
-      checked: false,
-      label: "Ireland",
-    },
-    {
-      id: 8,
-      checked: false,
-      label: "Germany",
-    },
-    {
-      id: 9,
-      checked: false,
-      label: "France",
-    },
-    {
-      id: 10,
-      checked: false,
-      label: "Sweden",
-    },
-  ]);
-
   // programs function
   const handleChangeCheckedProgram = (id) => {
     const programmsStateList = programs;
@@ -135,21 +82,44 @@ const Home = () => {
     setPrograms(changeCheckedPrograms);
   };
 
-  // country function
-  const handleChangeCheckedCountry = (id) => {
-    const countriesStateList = countries;
-    const changeCheckedCountires = countriesStateList.map((item) =>
-      item.id === id ? { ...item, checked: !item.checked } : item
-    );
-    setCountries(changeCheckedCountires);
-  };
-
   // price function
   const handleChangePrice = (event, value) => setSelectedPrice(value);
 
+   const [list, setList] = useState([
+     {
+       _id: "61bc327d44df1ce4694a83c6",
+       university: "jain university",
+       title: "bba",
+       specialization: "-",
+       campus:
+         "jc road  lalbagh road  ramanagar gandhi nagar jayanagar jayanagar 9th block",
+       country: "india ",
+       program: "ug",
+       duration: "3 years",
+       entryrequirement: "10+2",
+       applicationdeadline: "open",
+       applicationfee: "1050",
+       price: "160000",
+       scholarshipavailable: "available",
+       scholarshipdetails: "should be an indian citizen",
+       applicationmode: "online",
+       remarks: "8.0/10academic",
+       __v: 0,
+     },
+   ]);
+   const getCourse = () => {
+     var url = "http://localhost:5000/api/course/get";
+     axios.get(url).then((response) => setList(response.data));
+   };
+   console.log(list);
+
+   useEffect(() => {
+     getCourse();
+   }, [programs, selectedPrice]);
+
   //  parent filter function
   const applyFilters = () => {
-    let updatedList = dataList;
+    let updatedList = list;
 
     // search filter
     if (inputSearch) {
@@ -169,15 +139,7 @@ const Home = () => {
         programChecked.includes(item.program)
       );
     }
-    // country filter
-    const countryChecked = countries
-      .filter((item) => item.checked)
-      .map((item) => item.label.toLowerCase());
-    if (countryChecked.length) {
-      updatedList = updatedList.filter((item) =>
-        countryChecked.includes(item.country)
-      );
-    }
+  
 
     // price Filter
     const minPrice = selectedPrice[0];
@@ -194,12 +156,20 @@ const Home = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [programs, selectedPrice, countries, inputSearch]);
+  }, [programs, selectedPrice, inputSearch]);
+
+
+
+
+  
 
   return (
     <div class="home">
       {/* Searchbar */}
-      <Searchbar value={inputSearch} changeInput={(e) => setInputSearch(e.target.value)} />
+      <Searchbar
+        value={inputSearch}
+        changeInput={(e) => setInputSearch(e.target.value)}
+      />
       <div className="home_panelList-wrap">
         <div className="home_panel-wrap">
           {/* Side Panel */}
@@ -208,12 +178,15 @@ const Home = () => {
             changeChecked={handleChangeCheckedProgram}
             selectedPrice={selectedPrice}
             changedPrice={handleChangePrice}
-            countries={countries}
-            changeCheckedCountry={handleChangeCheckedCountry}
           />
         </div>
         <div className="home_list-wrap">
           {/* List */}
+          {/* <div className="list-wrap">
+            {list.map((item) => {
+              return <ListItem key={item._id} item={item} />;
+            })}
+          </div> */}
           {resultFound ? <List list={list} /> : <EmptyView />}
         </div>
       </div>
@@ -222,3 +195,10 @@ const Home = () => {
 };
 
 export default Home;
+
+/*
+
+
+
+
+*/

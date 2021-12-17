@@ -1,3 +1,18 @@
 .card{
     margin: 2rem;
 }
+.card-icon{
+  margin-right: 2px;
+  font-size: 20px;
+  color: #1D5AD4;
+}
+.card-icon-country{
+  margin-right: 4px;
+  font-size: 18px;
+  color: #1D5AD4;
+}
+.card-icon-fees{
+  margin-right: 4px;
+  font-size: 18px;
+  color: #1D5AD4;
+}
