@@ -5,6 +5,7 @@ import FilterPanel from "../../Home/FilterPanel";
 import List from "../../Home/List";
 import Searchbar from "../../Home/SearchBar";
 import Bar from "./appbar";
+import Pagination from "./Pagination";
 import "./styles.css";
 
 const Home = () => {
@@ -229,7 +230,9 @@ const Home = () => {
           </div>
           <div className="home_list-wrap">
             {/* List */}
-            <div className="data_found_wrapper"></div>
+            <div className="data_found_wrapper">
+              <div className="result_found"> Results Found : {list.length}</div>
+            </div>
             {resultFound ? <List list={list} /> : <EmptyView />}
           </div>
         </div>

@@ -6,6 +6,7 @@
   padding: 13px;
   color: #ffff;
   width: 330px;
+  border-radius: 5px;
 }
 .input-group {
   margin-bottom: 2rem;
@@ -16,9 +17,13 @@
 .label-range {
   margin-bottom: 2.5rem;
 }
-
+.input-group-price{
+  margin-bottom: 2rem;
+  overflow-y: auto;
+}
 .input-group-price-range {
   margin-bottom: 2rem;
+  position: absolute !important;
 }
 .icons {
   margin-left: 180px;
@@ -28,4 +33,10 @@
 }
 .horizontal-line {
   margin-bottom: 0.5rem;
+}
+.input-group-university{
+   margin-bottom: 2rem;
+  margin: 1rem;
+  height: 200px;
+  overflow-y: auto;
 }
