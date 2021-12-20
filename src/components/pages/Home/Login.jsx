@@ -5,9 +5,16 @@ import "./login.css";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../../actions/userActions";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import LinearProgressBar from "../../common/LinearProgressBar";
+import { makeStyles } from "@material-ui/styles";
 
+const useStyles = makeStyles({
+  login: {
+    overflowY: "hidden !important",
+    height: '658px'
+  },
+});
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -20,25 +27,24 @@ const Login = () => {
 
   let navigate = useNavigate();
 
-  useEffect(() =>{
-    if(userInfo){
+  useEffect(() => {
+    if (userInfo) {
       navigate("/searchprogram");
     }
-  },[navigate, userInfo])
-
+  }, [navigate, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     dispatch(login(email, password));
   };
-
+  const classes = useStyles();
   return (
-    <Grid spacing={10} container>
+    <Grid spacing={10} container className={classes.login}>
       <Grid md={6} item>
         <img
           src={Banner}
-          style={{ height: "615px", width: "800px", marginTop: "-1px" }}
+          style={{  width: "800px", marginTop: "-1px" }}
         />
       </Grid>
       <Grid md={6} item>
@@ -80,7 +86,7 @@ const Login = () => {
             color="secondary"
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button color="primary" variant="contained" onClick={submitHandler}>
             Login

@@ -3,10 +3,19 @@ import { Grid, Typography, Box, Button, TextField } from "@material-ui/core";
 import Banner from "./banner.png";
 import "./login.css";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/styles";
 
+const useStyles = makeStyles({
+  signup: {
+    overflowY: "hidden !important",
+    height: "658px",
+  },
+});
+ 
 const Signup = () => {
+  const classes = useStyles();
   return (
-    <Grid spacing={10} container>
+    <Grid spacing={10} container className={classes.signup}>
       <Grid md={6} item>
         <img
           src={Banner}
