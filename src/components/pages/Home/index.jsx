@@ -4,6 +4,7 @@ import EmptyView from "../../common/EmptyView";
 import FilterPanel from "../../Home/FilterPanel";
 import List from "../../Home/List";
 import Searchbar from "../../Home/SearchBar";
+import Bar from "./appbar";
 import "./styles.css";
 
 const Home = () => {
@@ -123,11 +124,12 @@ const Home = () => {
       __v: 0,
     },
   ]);
-  const getCourse = () => {
-    var url = "http://localhost:5000/api/course/get";
-    axios.get(url).then((response) => setList(response.data));
+  const getCourse = async () => {
+    const url =  "http://localhost:5000/api/course/get";
+  await fetch(url)
+      .then((response) => response.json())
+      .then((alldata) => setList(alldata));
   };
-  console.log(list);
 
   useEffect(() => {
     getCourse();
@@ -204,6 +206,7 @@ const Home = () => {
 
   return (
     <>
+      <Bar />
       <div class="home">
         {/* Searchbar */}
         <Searchbar
