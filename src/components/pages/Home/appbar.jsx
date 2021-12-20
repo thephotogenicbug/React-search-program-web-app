@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles';
-import { Avatar } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 const useStyles = makeStyles({
   root: {
     "&$checked": {
@@ -51,13 +52,27 @@ const Bar = () => {
        setAnchorEl(null);
      };
 
+      let navigate = useNavigate();
+
+      const dispatch = useDispatch();
+
+      const userLogin = useSelector((state) => state.userLogin);
+      const { userInfo } = userLogin;
+
+
+      const logout = () =>{
+        dispatch(logout())
+        navigate('/')
+      }
+
+
     const classes = useStyles();
     return (
       <div>
         <AppBar color="inherit">
           <Toolbar>
             <Typography className={classes.logo}>Logo</Typography>
-            <Typography>Mario</Typography>
+            <Typography>{`${userInfo?.name}`}</Typography>
             {/* <Avatar src="mario.png" className={classes.avatar}/> */}
             {auth && (
               <div>
@@ -85,9 +100,8 @@ const Bar = () => {
                   open={open}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
                   <MenuItem onClick={handleClose}>My account</MenuItem>
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  <MenuItem onClick={logout}>Logout</MenuItem>
                 </Menu>
               </div>
             )}

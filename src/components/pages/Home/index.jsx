@@ -125,8 +125,8 @@ const Home = () => {
     },
   ]);
   const getCourse = async () => {
-    const url =  "http://localhost:5000/api/course/get";
-  await fetch(url)
+    const url = "http://localhost:5000/api/course/get";
+    await fetch(url)
       .then((response) => response.json())
       .then((alldata) => setList(alldata));
   };
@@ -183,9 +183,11 @@ const Home = () => {
     const universityChecked = universities
       .filter((item) => item.checked)
       .map((item) => item.label.toLowerCase());
-      if(universityChecked.length){
-        updatedList = updatedList.filter((item) => universityChecked.includes(item.university))
-      }
+    if (universityChecked.length) {
+      updatedList = updatedList.filter((item) =>
+        universityChecked.includes(item.university)
+      );
+    }
 
     // price Filter
     const minPrice = selectedPrice[0];
