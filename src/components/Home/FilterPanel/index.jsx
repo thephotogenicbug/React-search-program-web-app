@@ -1,5 +1,6 @@
 import React from "react";
 import CheckBoxProton from "../../common/CheckBoxProtonProgramLevel";
+import CheckBoxProtonStudyLevel from "../../common/CheckBoxProtonStudyLevel";
 import CheckBoxProtonUniversity from "../../common/checkBoxProtonUniversityLevel";
 import SliderProton from "../../common/SliderProton";
 import "./styles.css";
@@ -11,6 +12,8 @@ const FilterPanel = ({
   selectedPrice,
   universities,
   changeCheckedUniversity,
+  studylevels,
+  changeCheckedStudyLevel,
 }) => {
   return (
     <div>
@@ -64,7 +67,15 @@ const FilterPanel = ({
           <i class="fas fa-filter"></i>
         </span>
       </p>
-      <div className="input-group"></div>
+      <div className="input-group">
+        {studylevels.map((studylevel) => (
+          <CheckBoxProtonStudyLevel
+            key={studylevel.id}
+            changeCheckedStudyLevel={changeCheckedStudyLevel}
+            studylevel={studylevel}
+          />
+        ))}
+      </div>
     </div>
   );
 };

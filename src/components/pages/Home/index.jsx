@@ -136,6 +136,39 @@ const Home = () => {
     getCourse();
   }, [programs, selectedPrice, setList, universities]);
 
+  const [studylevels, setStudyLevels] = useState([
+    {
+      id: 1,
+      checked: false,
+      label: "Internet of Things",
+    },
+    {
+      id: 2,
+      checked: false,
+      label: "Cloud Technology and Information Security",
+    },
+    {
+      id: 3,
+      checked: false,
+      label: "Cloud Technology and Mobile Application",
+    },
+    {
+      id: 4,
+      checked: false,
+      label: "Electives",
+    },
+    {
+      id: 5,
+      checked: false,
+      label: "Mobile Application and Information Security",
+    },
+    {
+      id: 6,
+      checked: false,
+      label: "Cyber Security",
+    },
+  ]);
+
   // programs function
   const handleChangeCheckedProgram = (id) => {
     const programmsStateList = programs;
@@ -152,6 +185,15 @@ const Home = () => {
       item.id === id ? { ...item, checked: !item.checked } : item
     );
     setUniversities(changeCheckedUniversities);
+  };
+
+  // studylevel function
+  const handleChangeCheckedStudyLevel = (id) => {
+    const studylevelsStateList = studylevels;
+    const changeCheckedStudyLevels = studylevelsStateList.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    setStudyLevels(changeCheckedStudyLevels);
   };
 
   // price function
@@ -190,6 +232,16 @@ const Home = () => {
       );
     }
 
+    // study filter
+    const studylevelChecked = studylevels
+      .filter((item) => item.checked)
+      .map((item) => item.label.toLowerCase());
+    if (studylevelChecked.length) {
+      updatedList = updatedList.filter((item) =>
+        studylevelChecked.includes(item.studylevel)
+      );
+    }
+
     // price Filter
     const minPrice = selectedPrice[0];
     const maxPrice = selectedPrice[1];
@@ -205,7 +257,7 @@ const Home = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [programs, selectedPrice, inputSearch, universities]);
+  }, [programs, selectedPrice, inputSearch, universities, studylevels]);
 
   return (
     <>
@@ -226,6 +278,8 @@ const Home = () => {
               changedPrice={handleChangePrice}
               universities={universities}
               changeCheckedUniversity={handleChangeCheckedUniversity}
+              studylevels={studylevels}
+              changeCheckedStudyLevel={handleChangeCheckedStudyLevel}
             />
           </div>
           <div className="home_list-wrap">
