@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import EmptyView from "../../common/EmptyView";
 import FilterPanel from "../../Home/FilterPanel";
 import List from "../../Home/List";
-import Searchbar from "../../Home/SearchBar";
 import Bar from "./appbar";
 import Pagination from "./Pagination";
 import "./styles.css";
@@ -11,7 +10,6 @@ import "./styles.css";
 const Home = () => {
   const [selectedPrice, setSelectedPrice] = useState([1000, 260000]);
   const [resultFound, setResultFound] = useState(false);
-  const [inputSearch, setInputSearch] = useState("");
   const [programs, setPrograms] = useState([
     {
       id: 1,
@@ -103,12 +101,13 @@ const Home = () => {
     },
   ]);
 
+
   const [list, setList] = useState([
     {
       _id: "61bc327d44df1ce4694a83c6",
       university: "jain university",
       title: "bba",
-      specialization: "-",
+      specialization: "internet of things",
       campus:
         "jc road  lalbagh road  ramanagar gandhi nagar jayanagar jayanagar 9th block",
       country: "india ",
@@ -125,16 +124,15 @@ const Home = () => {
       __v: 0,
     },
   ]);
-  const getCourse = async () => {
-    const url = "http://localhost:5000/api/course/get";
-    await fetch(url)
-      .then((response) => response.json())
-      .then((alldata) => setList(alldata));
-  };
 
   useEffect(() => {
-    getCourse();
-  }, [programs, selectedPrice, setList, universities]);
+    async function getData() {
+      const res = await axios.get("http://localhost:5000/api/course/get");
+      setList(res.data);
+    }
+    getData();
+    console.log(list)
+  }, [programs, selectedPrice, universities]);
 
   // programs function
   const handleChangeCheckedProgram = (id) => {
@@ -161,15 +159,6 @@ const Home = () => {
   const applyFilters = () => {
     let updatedList = list;
 
-    // search filter
-    if (inputSearch) {
-      updatedList = updatedList.filter(
-        (item) =>
-          item.title.toLowerCase().search(inputSearch.toLowerCase().trim()) !==
-          -1
-      );
-    }
-
     // program filter
     const programChecked = programs
       .filter((item) => item.checked)
@@ -189,7 +178,6 @@ const Home = () => {
         universityChecked.includes(item.university)
       );
     }
-
     // price Filter
     const minPrice = selectedPrice[0];
     const maxPrice = selectedPrice[1];
@@ -197,6 +185,7 @@ const Home = () => {
     updatedList = updatedList.filter(
       (item) => item.price >= minPrice && item.price <= maxPrice
     );
+    console.log(updatedList);
 
     setList(updatedList);
 
@@ -205,17 +194,13 @@ const Home = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [programs, selectedPrice, inputSearch, universities]);
+  }, [programs, selectedPrice, universities]);
+
 
   return (
     <>
       <Bar />
       <div class="home">
-        {/* Searchbar */}
-        <Searchbar
-          value={inputSearch}
-          changeInput={(e) => setInputSearch(e.target.value)}
-        />
         <div className="home_panelList-wrap">
           <div className="home_panel-wrap">
             {/* Side Panel */}
@@ -230,9 +215,9 @@ const Home = () => {
           </div>
           <div className="home_list-wrap">
             {/* List */}
-            <div className="data_found_wrapper">
+            {/* <div className="data_found_wrapper">
               <div className="result_found"> Results Found : {list.length}</div>
-            </div>
+            </div> */}
             {resultFound ? <List list={list} /> : <EmptyView />}
           </div>
         </div>

@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   root: {
     maxWidth: "100%",
     margin: "1rem",
-    marginTop:'62px'
+    marginTop:'12px'
   },
   cardcontent: {
     display: "flex",

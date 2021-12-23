@@ -64,7 +64,6 @@ const FilterPanel = ({
           <i class="fas fa-filter"></i>
         </span>
       </p>
-      <div className="input-group"></div>
     </div>
   );
 };
