@@ -196,7 +196,6 @@ const Home = () => {
     applyFilters();
   }, [programs, selectedPrice, universities]);
 
-
   return (
     <>
       <Bar />
