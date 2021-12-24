@@ -46,6 +46,7 @@ const FilterPanel = ({
           />
         ))}
       </div>
+      
       {/* price range  */}
       <div className="input-group-price">
         <p className="label">
@@ -56,14 +57,6 @@ const FilterPanel = ({
         </p>
         <SliderProton value={selectedPrice} changedPrice={changedPrice} />
       </div>
-      {/* <div className="input-group-price-range"></div> */}
-      {/*  study  checkbox  */}
-      <p className="label">
-        Study Level{" "}
-        <span class="icons">
-          <i class="fas fa-filter"></i>
-        </span>
-      </p>
     </div>
   );
 };

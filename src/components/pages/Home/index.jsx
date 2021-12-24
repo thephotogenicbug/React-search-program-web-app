@@ -131,7 +131,7 @@ const Home = () => {
       setList(res.data);
     }
     getData();
-    console.log(list)
+    console.log(list);
   }, [programs, selectedPrice, universities]);
 
   // programs function

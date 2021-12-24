@@ -71,7 +71,7 @@ const ListItem = ({
             <Typography className={classes.title}>{title}</Typography>
             <Typography variant="h6">
               <Button size="small" color="primary">
-                <Link to={`${_id}`} className={classes.button}>
+                <Link to={`/${_id}`} className={classes.button}>
                   View Details
                 </Link>
               </Button>
