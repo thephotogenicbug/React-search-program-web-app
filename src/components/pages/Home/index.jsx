@@ -204,7 +204,7 @@ const Home = () => {
       navigate('/')
     }
     applyFilters();
-  }, [programs, selectedPrice, universities]);
+  }, [programs, selectedPrice, universities, navigate]);
 
   return (
     <>
