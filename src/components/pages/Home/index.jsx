@@ -2,9 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { programList } from "../../../constants";
 import EmptyView from "../../common/EmptyView";
 import FilterPanel from "../../Home/FilterPanel";
 import List from "../../Home/List";
+import ListItem from "../../Home/ListItem";
 import Bar from "./appbar";
 import Pagination from "./Pagination";
 import "./styles.css";
@@ -12,68 +14,7 @@ import "./styles.css";
 const Home = () => {
   const [selectedPrice, setSelectedPrice] = useState([1000, 260000]);
   const [resultFound, setResultFound] = useState(false);
-  const [programs, setPrograms] = useState([
-    {
-      id: 1,
-      checked: false,
-      label: "High School",
-    },
-    {
-      id: 2,
-      checked: false,
-      label: "Ug Diploma Certificate Associate Degree",
-    },
-    {
-      id: 3,
-      checked: false,
-      label: "UG",
-    },
-    {
-      id: 4,
-      checked: false,
-      label: "PG Diploma Certificate",
-    },
-    {
-      id: 5,
-      checked: false,
-      label: "PG",
-    },
-    {
-      id: 6,
-      checked: false,
-      label: "UG+PG Accelerated Degree",
-    },
-    {
-      id: 7,
-      checked: false,
-      label: "PhD",
-    },
-    {
-      id: 8,
-      checked: false,
-      label: "Foundation",
-    },
-    {
-      id: 9,
-      checked: false,
-      label: "Short Term Programs",
-    },
-    {
-      id: 10,
-      checked: false,
-      label: "Pathway Programs",
-    },
-    {
-      id: 11,
-      checked: false,
-      label: "Twinning Programmes (UG)",
-    },
-    {
-      id: 12,
-      checked: false,
-      label: "Twinning Programmes (PG)",
-    },
-  ]);
+  const [programs, setPrograms] = useState(programList);
 
   const [universities, setUniversities] = useState([
     {
@@ -84,22 +25,7 @@ const Home = () => {
     {
       id: 2,
       checked: false,
-      label: "Nagarjuna University",
-    },
-    {
-      id: 3,
-      checked: false,
-      label: "Reva University",
-    },
-    {
-      id: 4,
-      checked: false,
-      label: "Rv College",
-    },
-    {
-      id: 5,
-      checked: false,
-      label: "Dayanad Sagar University",
+      label: "presidency university",
     },
   ]);
 
@@ -127,15 +53,6 @@ const Home = () => {
     },
   ]);
 
-  useEffect(() => {
-    async function getData() {
-      const res = await axios.get("http://localhost:5000/api/course/get");
-      setList(res.data);
-    }
-    getData();
-    console.log(list);
-  }, [programs, selectedPrice, universities]);
-
   // programs function
   const handleChangeCheckedProgram = (id) => {
     const programmsStateList = programs;
@@ -159,39 +76,49 @@ const Home = () => {
 
   //  parent filter function
   const applyFilters = () => {
-    let updatedList = list;
+     let updatedList = list;
 
-    // program filter
-    const programChecked = programs
-      .filter((item) => item.checked)
-      .map((item) => item.label.toLowerCase());
-    if (programChecked.length) {
-      updatedList = updatedList.filter((item) =>
-        programChecked.includes(item.program)
-      );
-    }
+    // // program filter
+    // const programChecked = programs
+    //   .filter((item) => item.checked)
+    //   .map((item) => item.label.toLowerCase());
+    // if (programChecked.length) {
+    //   updatedList = list.filter((item) =>
+    //     programChecked.includes(item.program)
+    //   );
+    // }
 
-    // university filter
-    const universityChecked = universities
-      .filter((item) => item.checked)
-      .map((item) => item.label.toLowerCase());
-    if (universityChecked.length) {
-      updatedList = updatedList.filter((item) =>
-        universityChecked.includes(item.university)
-      );
-    }
-    // price Filter
-    const minPrice = selectedPrice[0];
-    const maxPrice = selectedPrice[1];
+     // university filter
+     const universityChecked = universities
+       .filter((item) => item.checked)
+       .map((item) => item.label.toLowerCase());
+     if (universityChecked.length) {
+       updatedList = list.filter((item) =>
+         universityChecked.includes(item.university)
+       );
+     }
+     else{
+      
+     }
 
-    updatedList = updatedList.filter(
-      (item) => item.price >= minPrice && item.price <= maxPrice
-    );
-    console.log(updatedList);
+    // // price Filter
+    // const minPrice = selectedPrice[0];
+    // const maxPrice = selectedPrice[1];
 
-    setList(updatedList);
+    // updatedList = updatedList.filter(
+    //   (item) => item.price >= minPrice && item.price <= maxPrice
+    // );
 
-    !updatedList.length ? setResultFound(false) : setResultFound(true);
+     setList(updatedList);
+
+      // if(!updatedList.length){
+      //    return setResultFound(false)
+      // }
+      // else{
+      //   return setResultFound(true)
+      // }
+
+    // !updatedList.length ? setResultFound(false)  : setResultFound(true);
   };
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -200,11 +127,32 @@ const Home = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    if(!userInfo){
-      navigate('/')
+    if (!userInfo) {
+      navigate("/");
     }
     applyFilters();
-  }, [programs, selectedPrice, universities, navigate]);
+  }, [ universities, navigate]);
+
+   useEffect(() => {
+     async function getData() {
+       const res = await axios.get("http://localhost:5000/api/course/get");
+       setList(res.data);
+     }
+     getData();
+     console.log(list)
+   }, []);
+
+    const [showPerPage, setShowPerPage] = useState(25);
+    const [pagination, setPagination] = useState({
+      start: 0,
+      end: showPerPage,
+    });
+
+    const onPaginationChange = (start, end) => {
+      setPagination({ start: start, end: end });
+    };
+
+    const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <>
@@ -227,7 +175,36 @@ const Home = () => {
             {/* <div className="data_found_wrapper">
               <div className="result_found"> Results Found : {list.length}</div>
             </div> */}
-            {resultFound ? <List list={list} /> : <EmptyView />}
+            <Pagination
+              showPerPage={showPerPage}
+              onPaginationChange={onPaginationChange}
+            />
+            {list
+              ?.slice(pagination.start, pagination.end)
+              .filter((val) => {
+                if (searchTerm === "") {
+                  return val;
+                } else if (
+                  val.title.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return val;
+                } else if (
+                  val.specialization
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
+                ) {
+                  return val;
+                } else if (
+                  val.university
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
+                ) {
+                  return val;
+                }
+              })
+              .map((item) => (
+                <ListItem key={item._id} item={item} />
+              ))}
           </div>
         </div>
       </div>
