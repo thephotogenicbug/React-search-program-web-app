@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import EmptyView from "../../common/EmptyView";
 import FilterPanel from "../../Home/FilterPanel";
 import List from "../../Home/List";
@@ -192,7 +194,15 @@ const Home = () => {
     !updatedList.length ? setResultFound(false) : setResultFound(true);
   };
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  let navigate = useNavigate();
+
   useEffect(() => {
+    if(!userInfo){
+      navigate('/')
+    }
     applyFilters();
   }, [programs, selectedPrice, universities]);
 

@@ -1,9 +1,13 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import { Grid, Typography, Box, Button, TextField } from "@material-ui/core";
 import Banner from "./banner.png";
 import "./login.css";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../../actions/userActions";
+import LinearProgressBar from "../../common/LinearProgressBar";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   signup: {
@@ -11,9 +15,37 @@ const useStyles = makeStyles({
     height: "658px",
   },
 });
- 
+
 const Signup = () => {
   const classes = useStyles();
+  const [name, pickName] = useState("");
+  const [email, pickEmail] = useState("");
+  const [password, pickPassword] = useState("");
+  const [confirmpassword, pickConfirmPassword] = useState("");
+  const [message, updateMessage] = useState("")
+
+  const dispatch = useDispatch();
+
+      const userRegister = useSelector((state) => state.userRegister);
+      const { loading, error, userInfo } = userRegister;
+
+  const Signup = async (e) => {
+    e.preventDefault();
+    if(password !== confirmpassword){
+      updateMessage("Password does not match");
+    }
+     dispatch(register(name, email, password));
+     updateMessage("Registration success")
+  };
+
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/searchprogram");
+    }
+  }, [navigate, userInfo]);
+
   return (
     <Grid spacing={10} container className={classes.signup}>
       <Grid md={6} item>
@@ -35,6 +67,8 @@ const Signup = () => {
             SIGNUP
           </Typography>
         </Box>
+        {loading && <LinearProgressBar />}
+        <p>{message}</p>
         <Box
           style={{
             display: "flex",
@@ -50,26 +84,34 @@ const Signup = () => {
             label="Name"
             color="secondary"
             style={{ marginBottom: "10px" }}
+            value={name}
+            onChange={(e) => pickName(e.target.value)}
           />
           <TextField
             helperText=""
             label="Email"
             color="secondary"
             style={{ marginBottom: "10px" }}
+            value={email}
+            onChange={(e) => pickEmail(e.target.value)}
           />
           <TextField
             helperText=""
             label="Password"
             color="secondary"
             style={{ marginBottom: "10px" }}
+            value={password}
+            onChange={(e) => pickPassword(e.target.value)}
           />
           <TextField
             helperText=""
             label="Confirm Password"
             color="secondary"
             style={{ marginBottom: "20px" }}
+            value={confirmpassword}
+            onChange={(e) => pickConfirmPassword(e.target.value)}
           />
-          <Button color="primary" variant="contained">
+          <Button color="primary" variant="contained" onClick={Signup}>
             Signup
           </Button>
           <Typography style={{ marginTop: "20px" }}>
