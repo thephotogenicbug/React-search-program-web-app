@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   CardActionArea,
+  CardActions,
   CardContent,
   Grid,
   Paper,
@@ -35,7 +36,6 @@ const useStyles = makeStyles({
   card: {
     width: "100%",
     maxWidth: "900px",
-    
   },
   title: {
     textTransform: "uppercase",
@@ -65,27 +65,71 @@ const useStyles = makeStyles({
     padding: "13px",
     fontWeight: "bold",
     color: "#fff",
+    marginLeft: "10px",
   },
+  leftcardroot: {
+    minWidth: "390px",
+  },
+  leftcardcontent: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    textTransform: "uppercase",
+    color: "#4e4d4d",
+  },
+  leftcardcontentbody: {
+    textTransform: "uppercase",
+    fontSize: "14px",
+    display: "flex",
+    flexWrap: "wrap",
+    width: "340px",
+    marginTop: "40px",
+    color: "#4e4d4d",
+  },
+  flexwrap: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  cardcontentlabel: {
+    fontWeight: "bold",
+    color: "#4e4d4d",
+    textTransform: "uppercase",
+  },
+  cardcontentspan:{
+    textTransform:'uppercase'
+  }
 });
 
 const SinglePage = () => {
   const { id } = useParams();
 
+  const [university, processUniversity] = useState("");
   const [title, processTitle] = useState("");
   const [duration, processDuration] = useState("");
   const [campus, processCampus] = useState("");
+  const [applicationfee, processApplicationFee] = useState("");
   const [applicationdeadline, processApplicationDeadLine] = useState("");
+  const [price, processPrice] = useState("");
+  const [entryrequirement, processEntryRequirement] = useState("")
+  const [scholarshipavailable, processScholarShipAvailable] = useState("");
+  const [scholarshipdetails, processScholarShipDetails] = useState("");
 
   useEffect(() => {
     const fetching = async () => {
       const { data } = await axios.get(
         `http://localhost:5000/api/course/get/${id}`
       );
+      processUniversity(data?.university)
       processTitle(data?.title);
       processDuration(data?.duration);
       processCampus(data?.campus);
+      processApplicationFee(data?.applicationfee);
       processApplicationDeadLine(data?.applicationdeadline);
-
+      processPrice(data?.price);
+      processEntryRequirement(data?.entryrequirement);
+      processScholarShipAvailable(data?.scholarshipavailable);
+      processScholarShipDetails(data?.scholarshipdetails);
+      
       console.log(data);
     };
 
@@ -97,65 +141,121 @@ const SinglePage = () => {
     <>
       <Bar />
       <Grid container className={classes.root}>
-        <Grid md={4}>
+        <Grid md={5}>
           <Box className={classes.box}>
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<ControlPointIcon />}
-            >
-              Upload Student Data
-            </Button>
+            <Card className={classes.leftcardroot} variant="outlined">
+              <CardContent>
+                <Typography variant="h3" class={classes.leftcardcontent}>
+                  {university}
+                </Typography>
+                <Box className={classes.flexwrap}>
+                  <Typography
+                    variant="body2"
+                    class={classes.leftcardcontentbody}
+                  >
+                    Campus : {campus}
+                  </Typography>
+                </Box>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>
           </Box>
         </Grid>
-        <Grid md={8}>
+        <Grid md={7}>
           <Box className={classes.data}>
-            <Card
-              className={classes.card}
-              elevation={0}
-            >
-              <CardActionArea>
-                <CardContent className={classes.cardcontent}>
-                  <Typography className={classes.title}>
-                    <Box className={classes.boxtitle}>{title}</Box>
+            <Card className={classes.card} elevation={0}>
+              <CardContent className={classes.cardcontent}>
+                <Typography className={classes.title}>
+                  <Box className={classes.boxtitle}>{title}</Box>
+                </Typography>
+              </CardContent>
+              <CardContent>
+                <Box container>
+                  <Typography variant="body2" className={classes.cardcontent}>
+                    <label className={classes.cardcontentlabel}>Duration</label>{" "}
+                    :{" "}
+                    <span className={classes.cardcontentspan}>{duration}</span>
                   </Typography>
-                </CardContent>
-                <CardContent>
-                  <Box container>
-                    <Typography variant="body2" className={classes.cardcontent}>
-                      Campus : {campus}
-                    </Typography>
-                    <hr className={classes.hr} />
-                  </Box>
-                  <Box container>
-                    <Typography variant="body2" className={classes.cardcontent}>
-                      Duration : {duration}
-                    </Typography>
-                    <hr className={classes.hr} />
-                  </Box>
-                  <Box>
-                    <Typography variant="body2" className={classes.cardcontent}>
-                      Application Dead Line : {applicationdeadline}
-                    </Typography>
-                    <hr className={classes.hr} />
-                  </Box>
-                  <Box>
-                    <Typography variant="body2" className={classes.cardcontent}>
+                  <hr className={classes.hr} />
+                </Box>
+                <Box>
+                  <Typography variant="body2" className={classes.cardcontent}>
+                    <label className={classes.cardcontentlabel}>
+                      Application Dead Line
+                    </label>{" "}
+                    :{" "}
+                    <span className={classes.cardcontentspan}>
+                      {applicationdeadline}
+                    </span>
+                  </Typography>
+                  <hr className={classes.hr} />
+                </Box>
+                <Box>
+                  <Typography variant="body2" className={classes.cardcontent}>
+                    <label className={classes.cardcontentlabel}>
                       Application Fees
-                    </Typography>
-                    <hr className={classes.hr} />
-                  </Box>
-                  <Box>
-                    <Typography variant="body2" className={classes.cardcontent}>
-                      Yearly Tution Fees
-                    </Typography>
-                    <hr className={classes.hr} />
-                  </Box>
-                  <Typography className={classes.title}>
-                    <Box className={classes.boxcontainer}>Requirements</Box>
+                    </label>{" "}
+                    :{" "}
+                    <span className={classes.cardcontentspan}>
+                      {applicationfee}
+                    </span>
                   </Typography>
-                </CardContent>
-              </CardActionArea>
+                  <hr className={classes.hr} />
+                </Box>
+                <Box>
+                  <Typography variant="body2" className={classes.cardcontent}>
+                    <label className={classes.cardcontentlabel}>
+                      Yearly Tution Fees
+                    </label>{" "}
+                    : <span className={classes.cardcontentspan}>{price}</span>
+                  </Typography>
+                  <hr className={classes.hr} />
+                </Box>
+                <Typography className={classes.title}>
+                  <Box className={classes.boxcontainer}>Requirements</Box>
+                </Typography>
+                <Box>
+                  <Typography variant="body2" className={classes.cardcontent}>
+                    <label className={classes.cardcontentlabel}>
+                      Entry Requirements
+                    </label>{" "}
+                    :{" "}
+                    <span className={classes.cardcontentspan}>
+                      {entryrequirement}
+                    </span>
+                  </Typography>
+                  <hr className={classes.hr} />
+                </Box>
+                <Typography className={classes.title}>
+                  <Box className={classes.boxcontainer}>Scholarship</Box>
+                </Typography>
+                <Box>
+                  <Typography variant="body2" className={classes.cardcontent}>
+                    <label className={classes.cardcontentlabel}>
+                      Scholarship Available
+                    </label>{" "}
+                    :{" "}
+                    <span className={classes.cardcontentspan}>
+                      {scholarshipavailable}
+                    </span>
+                  </Typography>
+                  <hr className={classes.hr} />
+                </Box>
+                <Box>
+                  <Typography variant="body2" className={classes.cardcontent}>
+                    <label className={classes.cardcontentlabel}>
+                      Scholarship Details
+                    </label>{" "}
+                    :{" "}
+                    <span className={classes.cardcontentspan}>
+                      {scholarshipdetails}
+                    </span>
+                  </Typography>
+                  <hr className={classes.hr} />
+                </Box>
+              </CardContent>
             </Card>
           </Box>
         </Grid>
